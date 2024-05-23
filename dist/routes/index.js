@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
-const questions = require("./questions.routes");
+import express from "express";
+import questionsRouter from "./questions.routes.js";
 const router = express.Router();
+router.use("/q", questionsRouter);
 router.get("/", (req, res) => {
-    res.send("We working!");
+    res.send("Welcome to the base route!");
 });
-router.use("/q", questions);
-module.exports = router;
+export default router;

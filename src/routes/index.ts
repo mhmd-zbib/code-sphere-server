@@ -1,12 +1,12 @@
-const express = require("express");
-const questions = require("./questions.routes");
-const router = express.Router();
-import { Request, Response } from "express";
+import express, { Router, Request, Response } from "express";
+import questionsRouter from "./questions.routes.js";
+
+const router: Router = express.Router();
+
+router.use("/q", questionsRouter);
 
 router.get("/", (req: Request, res: Response) => {
-  res.send("We working!");
+  res.send("Welcome to the base route!");
 });
 
-router.use("/q", questions);
-
-module.exports = router;
+export default router;

@@ -1,14 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const app = (0, express_1.default)();
+import express from "express";
+import router from "./routes/index.js";
+const app = express();
 const port = 4000;
-app.get("/test", (req, res) => {
-    res.send("Server is running TOO!");
-});
+// app.use(router);
+app.use("/", router);
 app.listen(port, () => {
     console.log(`Server is running on peyysssort ${port}`);
 });

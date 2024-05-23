@@ -1,7 +1,10 @@
-const express = require("express");
-const questions = express.Router();
+import { Router } from "express";
 import { questionsController as controller } from "../controllers/questions/questions.controller.js";
 
-questions.get("/", controller.getQuestions);
+const questionsRouter = Router();
 
-module.exports = questions;
+questionsRouter.get("/", (req, res) => {
+  res.send("hellos");
+});
+
+export default questionsRouter;

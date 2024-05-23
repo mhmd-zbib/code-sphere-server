@@ -1,16 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.questionsController = void 0;
-const questionsService_js_1 = require("../../services/questions/questionsService.js");
+import { questionService } from "../../services/questions/questions.service";
 const getQuestions = (req, res) => {
     try {
-        const questions = questionsService_js_1.questionService.getQuestions();
-        res.status(200).send(`Questions fetched successfully for ${questions}`);
+        const questions = questionService.getQuestions();
+        res.status(200).send(questions); // Send the questions array directly
     }
     catch (err) {
         res.status(500).send("An error occurred");
     }
 };
-exports.questionsController = {
+export const questionsController = {
     getQuestions,
 };
