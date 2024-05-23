@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { questionService } from "../../services/questions/questions.service";
+import { questionService } from "../services/questions/questions.service.js";
 
 const getQuestions = (req: Request, res: Response) => {
   try {
