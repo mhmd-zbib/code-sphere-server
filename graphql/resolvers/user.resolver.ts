@@ -1,15 +1,19 @@
 import { GraphQLResolveInfo } from "graphql";
-import { userService } from "../../src/services/user/user.service";
+
+const cats = [
+  { id: "1", name: "Fluffy", breed: "Persian" },
+  { id: "2", name: "Whiskers", breed: "Siamese" },
+  { id: "3", name: "Felix", breed: "Maine Coon" },
+];
 
 export const usersResolver = {
   Query: {
-    async users(
-      _: any,
-      args: Record<string, any>,
-      context: any,
-      info: GraphQLResolveInfo
-    ) {
-      return [];
-    },
+    hello: () => "hello world",
+    cats: () => cats,
+  },
+
+  Mutation: {
+    async createUser() {},
+    async updateUser() {},
   },
 };

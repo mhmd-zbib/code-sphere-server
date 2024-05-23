@@ -10,12 +10,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.usersResolver = void 0;
+const cats = [
+    { id: "1", name: "Fluffy", breed: "Persian" },
+    { id: "2", name: "Whiskers", breed: "Siamese" },
+    { id: "3", name: "Felix", breed: "Maine Coon" },
+];
 exports.usersResolver = {
     Query: {
-        users(_, args, context, info) {
-            return __awaiter(this, void 0, void 0, function* () {
-                return [];
-            });
+        hello: () => "hello world",
+        cats: () => cats,
+    },
+    Mutation: {
+        createUser() {
+            return __awaiter(this, void 0, void 0, function* () { });
+        },
+        updateUser() {
+            return __awaiter(this, void 0, void 0, function* () { });
         },
     },
 };
