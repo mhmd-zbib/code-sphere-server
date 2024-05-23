@@ -1,3 +1,6 @@
+/**
+ * Index route of the application
+ */
 import express from "express";
 import questionsRouter from "./questions.routes.js";
 const router = express.Router();

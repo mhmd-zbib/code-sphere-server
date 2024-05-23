@@ -1,3 +1,7 @@
+/**
+ * Index route of the application
+ */
+
 import express, { Router, Request, Response } from "express";
 import questionsRouter from "./questions.routes.js";
 
