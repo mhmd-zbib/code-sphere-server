@@ -7,7 +7,7 @@ const getAllUsers = async () => {
   return user;
 };
 
-const createUser = async (userData: UserType) => {
+const createUser = async (userData: any) => {
   console.log(userData.name, "mans name here");
   // const user = await prisma.create({ data: userData });
 };

@@ -16,14 +16,13 @@ datasource db {
 // Define the User model
 model User {
   id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
+  username  String
+  email     String
   password  String
   avatar    String? // URL of the user's avatar image
   createdAt DateTime @default(now()) // Timestamp of user creation
   updatedAt DateTime @updatedAt // Timestamp of the last update
 
-  // Define relationships
   posts    Post[]    @relation("UserPosts") // Posts created by the user
   comments Comment[] @relation("UserComments") // Comments made by the user
 

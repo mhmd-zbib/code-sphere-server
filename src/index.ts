@@ -1,9 +1,7 @@
-import express, { Express, NextFunction, Request, Response } from "express";
-import router from "./routes";
-import { main } from "../test/functions/seed";
-import ApiError from "./utils/api-error";
-import { errorHandler } from "./utils/error-handler";
 const cors = require("cors");
+import express, { Express } from "express";
+import router from "./routes";
+import { errorHandler } from "./utils/error-handler";
 
 const app: Express = express();
 const port = 4000;
@@ -16,14 +14,10 @@ const serverSetup = async () => {
     })
   );
 
-  app.use("/", router);
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true })); // Note: read docs to understand
+  app.use(express.json()); // Parse JSON bodies
+  app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
-  interface ApiError extends Error {
-    statusCode?: number;
-    status?: string;
-  }
+  app.use("/", router);
 
   app.use(errorHandler);
 

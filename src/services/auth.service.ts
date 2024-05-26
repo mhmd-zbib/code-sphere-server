@@ -1,12 +1,14 @@
-import ApiError from "../utils/api-error";
+import { PrismaClient } from "@prisma/client";
+import { userModel } from "../models/user";
+import { hashString } from "../utils/hash";
+const userClient = new PrismaClient().user;
 
-async function test(data: any) {
-  if (!data) {
-    throw ApiError.badRequest("Data is required");
-  }
-  return { message: "Post created successfully", data };
+async function signup(username: string, email: string, password: string) {
+  const hashedPassword = await hashString(password);
+  const user = await userModel.create(username, email, hashedPassword);
+  return user;
 }
 
 export const authService = {
-  test,
+  signup,
 };

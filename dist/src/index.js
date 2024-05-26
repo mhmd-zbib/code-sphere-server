@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const cors = require("cors");
 const express_1 = __importDefault(require("express"));
 const routes_1 = __importDefault(require("./routes"));
 const error_handler_1 = require("./utils/error-handler");
-const cors = require("cors");
 const app = (0, express_1.default)();
 const port = 4000;
 const serverSetup = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -23,9 +23,9 @@ const serverSetup = () => __awaiter(void 0, void 0, void 0, function* () {
         origin: "http://localhost:3000",
         credentials: true,
     }));
+    app.use(express_1.default.json()); // Parse JSON bodies
+    app.use(express_1.default.urlencoded({ extended: true })); // Parse URL-encoded bodies
     app.use("/", routes_1.default);
-    app.use(express_1.default.json());
-    app.use(express_1.default.urlencoded({ extended: true })); // Note: read docs to understand
     app.use(error_handler_1.errorHandler);
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
