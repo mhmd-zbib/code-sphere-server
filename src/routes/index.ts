@@ -3,13 +3,21 @@
  */
 
 import express, { Router, Request, Response } from "express";
-import questionsRouter from "./questions.router";
-import userRouter from "./user.router";
+import postRouter from "./posts.router";
+import userRouter from "./users.router";
+import authRouter from "./auth.router";
+import ApiError from "../utils/api-error";
 
 const router: Router = express.Router();
 
-router.use("/questions", questionsRouter);
-router.use("/user", userRouter);
+router.use("*", (req, res, next) => {
+  next(ApiError.badRequest("No access"));
+  return;
+});
+
+router.use("/posts", postRouter);
+router.use("/users", userRouter);
+router.use("/auth", authRouter);
 
 router.get("/ping", (req: Request, res: Response) => {
   res.send("pong");

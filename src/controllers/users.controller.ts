@@ -1,4 +1,4 @@
-import { userService } from "../services/user/user.service";
+import { userService } from "../services/users.service";
 import { Request, Response } from "express";
 
 //getAllUsers
@@ -13,10 +13,8 @@ const getAllUsers = async (req: Request, res: Response) => {
 
 //creates a dummy user
 const createUser = async (req: Request, res: Response) => {
+  const user = req.body;
   try {
-    console.log("got req");
-    console.log(req.body);
-
     const user = await userService.createUser(req.body);
     res.status(200).json("done");
   } catch (err) {

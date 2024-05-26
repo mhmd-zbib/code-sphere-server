@@ -1,0 +1,53 @@
+[
+  {
+    "post_id": 1,
+    "user": {
+      "username": "dev_guru",
+      "avatar": "https://example.com/avatar/dev_guru.png"
+    },
+    "title": "Looking for Frontend Developer for React Project",
+    "description": "We're a small team working on an exciting new project using React. We need an experienced frontend developer to join us and help bring our vision to life.",
+    "collaboration_type": "Part-time",
+    "required_skills": ["React", "JavaScript", "HTML", "CSS"],
+    "project_link": "https://github.com/dev_guru/project",
+    "support": {
+      "platform": "DevCollab Hub",
+      "email": "contact@devcollabhub.com"
+    },
+    "comments": 5
+  },
+  {
+    "post_id": 2,
+    "user": {
+      "username": "code_ninja",
+      "avatar": "https://example.com/avatar/code_ninja.png"
+    },
+    "title": "Join Our Open Source Python Library Project",
+    "description": "We're building a Python library for data analysis and visualization. Looking for Python enthusiasts to contribute and grow with us.",
+    "collaboration_type": "Volunteer",
+    "required_skills": ["Python", "Data Science", "Data Visualization"],
+    "project_link": "https://github.com/code_ninja/python-library",
+    "support": {
+      "platform": "DevCollab Hub",
+      "email": "contact@devcollabhub.com"
+    },
+    "comments": 12
+  },
+  {
+    "post_id": 3,
+    "user": {
+      "username": "design_maestro",
+      "avatar": "https://example.com/avatar/design_maestro.png"
+    },
+    "title": "UI/UX Designer Needed for Mobile App Project",
+    "description": "Seeking a talented UI/UX designer to collaborate on a mobile app project. Must have experience designing intuitive and visually appealing interfaces.",
+    "collaboration_type": "Full-time",
+    "required_skills": ["UI/UX Design", "Adobe XD", "Figma"],
+    "project_link": "https://github.com/design_maestro/mobile-app",
+    "support": {
+      "platform": "DevCollab Hub",
+      "email": "contact@devcollabhub.com"
+    },
+    "comments": 8
+  }
+]

@@ -1,4 +1,5 @@
 "use strict";
+// userResolvers.js
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -9,23 +10,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.usersResolver = void 0;
-const cats = [
-    { id: "1", name: "Fluffy", breed: "Persian" },
-    { id: "2", name: "Whiskers", breed: "Siamese" },
-    { id: "3", name: "Felix", breed: "Maine Coon" },
-];
-exports.usersResolver = {
+exports.userResolvers = void 0;
+const client_1 = require("@prisma/client");
+const prisma = new client_1.PrismaClient();
+exports.userResolvers = {
     Query: {
-        hello: () => "hello world",
-        cats: () => cats,
+        users: () => __awaiter(void 0, void 0, void 0, function* () {
+            try {
+                return yield prisma.user.findMany();
+            }
+            catch (error) {
+                throw new Error(`Error fetching users: ${error}`);
+            }
+        }),
     },
-    Mutation: {
-        createUser() {
-            return __awaiter(this, void 0, void 0, function* () { });
-        },
-        updateUser() {
-            return __awaiter(this, void 0, void 0, function* () { });
-        },
+    User: {
+        posts: (parent) => __awaiter(void 0, void 0, void 0, function* () {
+            try {
+                return yield prisma.user
+                    .findUnique({ where: { id: parent.id } })
+                    .posts();
+            }
+            catch (error) {
+                throw new Error(`Error fetching posts for user ${parent.id}: ${error}`);
+            }
+        }),
     },
 };

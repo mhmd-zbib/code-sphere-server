@@ -1,13 +1,37 @@
-import { readFileSync } from "fs";
 import path from "path";
-import { usersResolver } from "./resolvers/user.resolver";
+import postResolver from "./resolvers/posts.resolver";
 
-const userTypes = readFileSync(path.join(__dirname, "./typeDefs/user.graphql"));
+export const typeDefs = `
+type User {
+  id: Int!
+  username: String!
+  avatar: String
+  posts: [Post!]!
+}
 
-export const typeDefs = `%{userTypes}`;
+
+type Post {
+  id: Int!
+  title: String!
+  description: String!
+  collaborationType: String!
+  requiredSkills: [String!]!
+  projectLink: String
+  comments: Int!
+  supportPlatform: String
+  supportEmail: String
+  user: User!
+}
+
+type Query {
+  getPosts: [Post!]!
+  getUsers: [User!]!
+
+}
+`;
 
 export const resolvers = {
   Query: {
-    ...usersResolver.Query,
+    ...postResolver.Query,
   },
 };

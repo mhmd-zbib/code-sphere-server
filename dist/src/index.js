@@ -13,25 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const express4_1 = require("@apollo/server/express4");
-const server_1 = require("@apollo/server");
 const routes_1 = __importDefault(require("./routes"));
-const graphql_1 = require("../graphql");
+const error_handler_1 = require("./utils/error-handler");
+const cors = require("cors");
 const app = (0, express_1.default)();
 const port = 4000;
 const serverSetup = () => __awaiter(void 0, void 0, void 0, function* () {
-    const apollo = new server_1.ApolloServer({
-        typeDefs: graphql_1.typeDefs,
-        resolvers: graphql_1.resolvers,
-    });
-    yield apollo.start();
+    app.use(cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    }));
     app.use("/", routes_1.default);
     app.use(express_1.default.json());
-    app.use(express_1.default.urlencoded({ extended: true })); //read docs to understand
-    app.use("/graphql", (0, express4_1.expressMiddleware)(apollo));
+    app.use(express_1.default.urlencoded({ extended: true })); // Note: read docs to understand
+    app.use(error_handler_1.errorHandler);
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
-        console.log(`Graphql is running on port http://localhost:${port}/graphql`);
     });
 });
 serverSetup();

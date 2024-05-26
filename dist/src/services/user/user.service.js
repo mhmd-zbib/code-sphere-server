@@ -13,11 +13,7 @@ exports.userService = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient().user;
 const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield prisma.findMany({
-        include: {
-            posts: true,
-        },
-    });
+    const user = yield prisma.findMany();
     return user;
 });
 const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {

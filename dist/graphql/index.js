@@ -4,11 +4,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resolvers = exports.typeDefs = void 0;
-const fs_1 = require("fs");
-const path_1 = __importDefault(require("path"));
-const user_resolver_1 = require("./resolvers/user.resolver");
-const userTypes = (0, fs_1.readFileSync)(path_1.default.join(__dirname, "./typeDefs/user.graphql"));
-exports.typeDefs = `%{userTypes}`;
+const posts_resolver_1 = __importDefault(require("./resolvers/posts.resolver"));
+exports.typeDefs = `
+type User {
+  id: Int!
+  username: String!
+  avatar: String
+  posts: [Post!]!
+}
+
+
+type Post {
+  id: Int!
+  title: String!
+  description: String!
+  collaborationType: String!
+  requiredSkills: [String!]!
+  projectLink: String
+  comments: Int!
+  supportPlatform: String
+  supportEmail: String
+  user: User!
+}
+
+type Query {
+  getPosts: [Post!]!
+  getUsers: [User!]!
+
+}
+`;
 exports.resolvers = {
-    Query: Object.assign({}, user_resolver_1.usersResolver.Query),
+    Query: Object.assign({}, posts_resolver_1.default.Query),
 };
