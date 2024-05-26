@@ -1,3 +1,12 @@
+/**
+ *
+ * Set of custom standard errors in express server
+ * By default passing the code and the message for the user
+ *
+ * next(ApiError.{type of error}( { message } ))
+ *
+ */
+
 class ApiError extends Error {
   code: number;
 

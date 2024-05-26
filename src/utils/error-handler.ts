@@ -1,3 +1,11 @@
+/**
+ * Global error handler for express server
+ * This middleware catches business errors
+ * If the error is known it will be an instance of ApiError.
+ * If the error is unexpected it will throw an internal server error
+ *
+ */
+
 import { NextFunction, Request, Response } from "express";
 import ApiError from "./api-error";
 
