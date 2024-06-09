@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
+import ApiError from "../utils/api-error";
 
 const validationRules = [
   body("username").notEmpty().withMessage("Username is required"),
@@ -9,19 +10,21 @@ const validationRules = [
     .withMessage("Password must be at least 6 characters long"),
 ];
 
-async function validate(req: Request, res: Response, next: NextFunction) {
+async function validateSignup(req: Request, res: Response, next: NextFunction) {
   await Promise.all(validationRules.map((validation) => validation.run(req)));
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const errorMessages = errors.array().map((error) => error.msg);
-    return res
-      .status(400)
-      .json({ message: "Validation failed", errors: errorMessages });
+    const error = ApiError.badRequest("Signup failed", {
+      details: errorMessages,
+    });
+    return next(error);
   }
   next();
 }
 
+
+
 export const authMiddleware = {
-  signup: validate,
+  signup: validateSignup,
 };

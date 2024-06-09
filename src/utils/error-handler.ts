@@ -16,17 +16,19 @@ function errorHandler(
   next: NextFunction
 ) {
   console.error(err.message);
+
   let statusCode = 500;
   let errorMessage = "Internal Server Error";
 
   if (err instanceof ApiError) {
-    statusCode = err.code;
+    statusCode = err.status;
     errorMessage = err.message;
   }
 
   res.status(statusCode).json({
-    error: statusCode,
+    status: statusCode,
     message: errorMessage,
+    details: err.details,
   });
 }
 

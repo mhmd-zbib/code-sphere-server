@@ -15,20 +15,31 @@ class UserModel {
       },
     });
 
+    // checking if exists
     if (existingUser.length > 0) {
+      let errors: any = {};
       if (existingUser.some((user) => user.username === username)) {
-        throw ApiError.badRequest("Username already exists");
+        errors.username = "Username already in use";
       }
       if (existingUser.some((user) => user.email === email)) {
-        throw ApiError.badRequest("Email already exists");
+        errors.email = "Email already in use";
       }
+      throw ApiError.badRequest("Signup failed", errors);
     }
-
     return await this.userClient.create({
       data: {
         username: username,
         email: email,
         password: password,
+      },
+    });
+  }
+
+  async findByUsernameOrEmail(usernameOrEmail: string) {
+    return await this.userClient.findFirst({
+      where: {
+        email: usernameOrEmail,
+        username: usernameOrEmail,
       },
     });
   }

@@ -1,5 +1,16 @@
+/**
+ * Hashing for passwords and sensitive data
+ */
+
 const bcrypt = require("bcrypt");
 
+/**
+ * Hash the corresponding string with the specified salt rounds
+ *
+ * @param input
+ * @param saltRounds
+ * @returns
+ */
 async function hashString(
   input: string,
   saltRounds: number = 10
@@ -8,6 +19,13 @@ async function hashString(
   return hashedString;
 }
 
+/**
+ * Check hash of the code
+ *
+ * @param input the user enters
+ * @param hashedString the one to compare with
+ * @returns
+ */
 async function validateHash(
   input: string,
   hashedString: string

@@ -26,19 +26,32 @@ class UserModel {
                     OR: [{ username: username }, { email: email }],
                 },
             });
+            // checking if exists
             if (existingUser.length > 0) {
+                let errors = {};
                 if (existingUser.some((user) => user.username === username)) {
-                    throw api_error_1.default.badRequest("Username already exists");
+                    errors.username = "Username already in use";
                 }
                 if (existingUser.some((user) => user.email === email)) {
-                    throw api_error_1.default.badRequest("Email already exists");
+                    errors.email = "Email already in use";
                 }
+                throw api_error_1.default.badRequest("Signup failed", errors);
             }
             return yield this.userClient.create({
                 data: {
                     username: username,
                     email: email,
                     password: password,
+                },
+            });
+        });
+    }
+    findByUsernameOrEmail(usernameOrEmail) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.userClient.findFirst({
+                where: {
+                    email: usernameOrEmail,
+                    username: usernameOrEmail,
                 },
             });
         });

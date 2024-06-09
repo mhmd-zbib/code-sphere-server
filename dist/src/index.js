@@ -20,7 +20,7 @@ const app = (0, express_1.default)();
 const port = 4000;
 const serverSetup = () => __awaiter(void 0, void 0, void 0, function* () {
     app.use(cors({
-        origin: "http://localhost:3000",
+        origin: "http://localhost:5173",
         credentials: true,
     }));
     app.use(express_1.default.json()); // Parse JSON bodies

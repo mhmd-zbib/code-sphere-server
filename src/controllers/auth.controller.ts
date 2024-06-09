@@ -1,14 +1,30 @@
 import { NextFunction, Request, Response } from "express";
 import { authService } from "../services/auth.service";
-import ApiError from "../utils/api-error";
-import { validationResult } from "express-validator";
+import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 
 async function signup(req: Request, res: Response, next: NextFunction) {
   try {
     const { username, email, password } = req.body;
+    const user = await authService.signup(username, email, password);
+    const accessToken = generateAccessToken(user);
+    const refreshToken = generateRefreshToken(user);
 
-    await authService.signup(username, email, password);
+    res.cookie("token", accessToken, {
+      // httpOnly: true,
+      maxAge: 3600000,
+      secure: true,
+    });
+
     res.status(201).json({ message: "User created successfully" });
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function login(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { usernameOrEmail, password } = req.body;
+    const user = await authService.login(usernameOrEmail, password);
   } catch (err) {
     next(err);
   }
@@ -16,4 +32,5 @@ async function signup(req: Request, res: Response, next: NextFunction) {
 
 export const authController = {
   signup,
+  login,
 };

@@ -1,39 +1,54 @@
 /**
  *
  * Set of custom standard errors in express server
- * By default passing the code and the message for the user
+ * By default passing the status and the message for the user
  *
  * next(ApiError.{type of error}( { message } ))
  *
  */
 
 class ApiError extends Error {
-  code: number;
+  status: number;
+  message: string;
+  type: string;
+  details?: any;
 
-  constructor(code: number, message: string) {
+  constructor(status: number, message: string, type: string, details?: any) {
     super(message);
-    this.code = code;
+    this.status = status;
+    this.message = message;
+    this.type = type;
+    this.details = details;
     Object.setPrototypeOf(this, ApiError.prototype);
   }
 
-  static badRequest(message: string = "Bad Request") {
-    return new ApiError(400, message);
+  toJson() {
+    return {
+      status: this.status,
+      message: this.message,
+      type: this.type,
+      details: this.details,
+    };
+  }
+
+  static badRequest(message: string = "Bad Request", details?: any) {
+    return new ApiError(400, message, "Validation Error", details);
   }
 
   static unauthorized(message: string = "Unauthorized") {
-    return new ApiError(401, message);
+    return new ApiError(401, message, "Unauthorized");
   }
 
   static forbidden(message: string = "Forbidden") {
-    return new ApiError(403, message);
+    return new ApiError(403, message, "Forbidden");
   }
 
   static notFound(message: string = "Not Found") {
-    return new ApiError(404, message);
+    return new ApiError(404, message, "Not Found");
   }
 
   static internalServerError(message: string = "Internal Server Error") {
-    return new ApiError(500, message);
+    return new ApiError(500, message, "Internal Server Error");
   }
 }
 

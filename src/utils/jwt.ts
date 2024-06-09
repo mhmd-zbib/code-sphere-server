@@ -16,7 +16,7 @@ export function generateRefreshToken(
   payload: any,
   expiresIn: string = REFRESH_TOKEN_EXPIRY
 ): string {
-  return jwt.sign(payload, TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRY });
+  return jwt.sign(payload, TOKEN_SECRET);
 }
 
 export function verifyAccessToken(token: string): DecodedToken | null {
